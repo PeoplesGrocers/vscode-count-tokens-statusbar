@@ -1,0 +1,12 @@
+.vscode
+node_modules
+out/test
+test
+src
+**/*.map
+**/*.swp
+**/*.swo
+.gitignore
+tsconfig.json
+vsc-extension-quickstart.md
+preview.gif
