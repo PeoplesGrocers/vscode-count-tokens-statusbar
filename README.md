@@ -15,19 +15,20 @@ of the status bar.
 - **Auto-Update:** The token count is automatically updated as you edit or select text, ensuring
 that the count is always accurate.
 
-- **Easy Activation:** The extension is activated as soon as VS Code starts up. Uou don't have to
+- **Easy Activation:** The extension is activated as soon as VS Code starts up. You don't have to
 manually activate it every time you start your editor.
 
 - **Model Selection:** The extension allows you to select the model you want to use for token
 counting. The default model is the OpenAI's GPT-4 model. All OpenAI and Anthropic models are
 available.
 
-   - cl100k_base 
+   - cl100k_base: GPT-4
    - p50k_edit
    - p50k_base
-   - r50k_base
+   - r50k_base: GPT-3.5
    - gpt2
-   - anthropic
+   - Anthropic Claude v1 and v2
+   - LLaMA
 
    You can change the model by:
    1. clicking on the token count in the status bar and selecting the model you want to use.

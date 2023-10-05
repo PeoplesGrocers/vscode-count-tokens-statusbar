@@ -1,8 +1,8 @@
 {
 	"name": "ai-token-count",
 	"displayName": " Token Count in Status Bar for your active file and selection",
-	"description": "GPT-4, GPT-3.5, Anthropic Claude, Llama token counts live in your status bar! token count file status bar.",
-	"version": "1.0.9",
+	"description": "GPT-4, GPT-3.5, Anthropic Claude, LLaMA token counts live in your status bar! token count file status bar.",
+	"version": "1.1.0",
 	"publisher": "marxism",
 	"private": true,
 	"license": "AGPL-3.0",
@@ -27,6 +27,7 @@
 		"gpt4",
 		"GPT-3.5",
 		"GPT-4",
+		"LLaMA",
 		"tokenzier",
 		"intellisense",
 		"refactor",
@@ -50,6 +51,7 @@
 		]
 	},
 	"main": "./out/extension.js",
+	"browser": "./out/extension.js",
 	"scripts": {
 		"vscode:prepublish": "npm run esbuild-base --",
 		"esbuild-base": "esbuild ./src/extension.ts  --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",

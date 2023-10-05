@@ -19,6 +19,8 @@ import {
 	TiktokenModel,
 } from 'js-tiktoken';
 import claude from './claude.json';
+import llamaTokenizer from 'llama-tokenizer-js';
+
 let myStatusBarItem: vscode.StatusBarItem;
 const myCommandId = 'marxism.ai-token-count.changeTokenizer';
 let countTokens: (fragment: string) => number;
@@ -28,12 +30,16 @@ let countTokens: (fragment: string) => number;
 // So instead I vendored the raw bpe_ranks file into this repository
 // https://github.com/anthropics/anthropic-tokenizer-typescript/blob/main/index.ts
 let anthropicEncoder: Tiktoken;
-type TokenizerKind = TiktokenEncoding | 'anthropic';
+type TokenizerKind = TiktokenEncoding | 'anthropic' | 'llama';
 function makeCountTokens(kind: TokenizerKind) {
 	if (kind === 'anthropic') {
 		return (fragment: string) => {
 			return anthropicEncoder.encode(fragment.normalize('NFKC'), 'all')
 				.length;
+		};
+	} else if (kind === 'llama') {
+		return (fragment: string) => {
+			return llamaTokenizer.encode(fragment).length;
 		};
 	} else {
 		const encoder = getEncoding(kind);
@@ -58,8 +64,8 @@ export function activate({
 				(globalState.get('tokenizer') as TiktokenEncoding) ||
 				'cl100k_base';
 			const choices: {
-				label: TiktokenEncoding | TiktokenModel | 'anthropic';
-				value: TiktokenEncoding | 'anthropic';
+				label: TiktokenEncoding | TiktokenModel | 'anthropic' | 'LLaMA';
+				value: TiktokenEncoding | 'anthropic' | 'llama';
 				description?: string;
 				iconPath?: vscode.ThemeIcon;
 			}[] = [
@@ -70,6 +76,8 @@ export function activate({
 				{ label: 'gpt2', value: 'gpt2' },
 				// All Anthropic models use the same tokenizer
 				{ label: 'anthropic', value: 'anthropic' },
+				// All Anthropic models use the same tokenizer
+				{ label: 'LLaMA', value: 'llama' },
 			];
 			for (let i = 0; i < choices.length; i++) {
 				if (choices[i].label === currentTokenizer) {
